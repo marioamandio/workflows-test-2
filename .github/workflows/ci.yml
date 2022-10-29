@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
@@ -17,15 +18,20 @@ jobs:
           key: ${{ runner.os}}-node-${{hashFiles('**/package-lock.json')}}
           restore-keys: |
             ${{ runner.os }}-node-
+
       - name: NodeJS
         uses: actions/setup-node@v3
         with:
-          node-version: "16.x"
+          node-version: 16
+
       - run: npm ci # similar to npm install
+
       - run: npm run format:check
+
       - run: npm test -- --coverage
         env:
           CI: true
+
       - name: Upload Test coverage
         uses: actions/upload-artifact@v3
         with:
@@ -35,12 +41,14 @@ jobs:
       - name: Build Project
         if: github.event_name == 'push'
         run: npm run build
+
       - name: Upload Build folder
         if: github.event_name == 'push'
         uses: actions/upload-artifact@v3
         with:
           name: build
           path: build
+
       - name: Deploy to Staging
         if: github.event_name == 'push'
         run: npx surge --project ./build --domain https://responsible-umbrella.surge.sh/
