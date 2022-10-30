@@ -1,1 +1,1 @@
-![](https://github.com/marioamandio/test-workflows-2/workflows/CI/badge.svg?branch=dev&event=push)
+![](https://github.com/marioamandio/workflows-test-2/workflows/CI/badge.svg?branch=dev&event=push)
