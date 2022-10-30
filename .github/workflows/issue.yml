@@ -1,4 +1,4 @@
-name: Notify on issue opened
+name: Notify on issue created
 on:
   issues:
     type: [opened]
